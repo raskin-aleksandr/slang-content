@@ -41,6 +41,8 @@ flow:
           - username: docker_username
           - password: docker_password
           - privateKeyFile: private_key_file
+      publish:
+        - error_message
     get_all_images:
       do:
         docker_images.get_all_images:
@@ -50,6 +52,7 @@ flow:
           - privateKeyFile: private_key_file
       publish:
         - all_images_list: image_list
+        - error_message
     get_used_images:
       do:
         docker_images.get_used_images_flow:
@@ -59,6 +62,7 @@ flow:
           - private_key_file
       publish:
         - used_images_list: used_images_list
+        - error_message
     substract_used_images:
       do:
         base_lists.subtract_sets:
@@ -80,8 +84,10 @@ flow:
           - images: images_list_safe_to_delete
       publish:
         - response
+        - error_message
 
   outputs:
     - images_list_safe_to_delete
     - amount_of_images_deleted: "'0' if images_list_safe_to_delete == '' else amount_of_images"
     - used_images_list
+    - error_message

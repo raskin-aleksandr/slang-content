@@ -46,6 +46,7 @@ flow:
           - images_list_safe_to_delete
           - amount_of_images_deleted
           - used_images_list
+          - error_message
      clear_docker_dangling_images:
         do:
           docker_images.clear_docker_dangling_images_flow:
@@ -57,8 +58,10 @@ flow:
         publish:
           - dangling_images_list_safe_to_delete
           - amount_of_dangling_images_deleted
+          - error_message
   outputs:
     - amount_of_images_deleted
     - amount_of_dangling_images_deleted
     - dangling_images_list_safe_to_delete
     - images_list_safe_to_delete
+    - error_message

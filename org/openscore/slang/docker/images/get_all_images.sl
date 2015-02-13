@@ -58,6 +58,7 @@ operation:
       methodName: runSshShellCommand
   outputs:
     - image_list: returnResult.replace("\n"," ").replace("<none>:<none> ","").replace("REPOSITORY:TAG ","")
+    - error_message: STDERR if returnCode == '0' else returnResult
   results:
     - SUCCESS: returnCode == '0' and (not 'Error' in STDERR)
     - FAILURE

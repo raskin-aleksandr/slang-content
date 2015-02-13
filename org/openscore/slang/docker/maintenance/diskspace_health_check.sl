@@ -43,6 +43,8 @@ flow:
           - username: docker_username
           - password: docker_password
           - privateKeyFile: private_key_file
+      publish:
+        - error_message
     check_disk_space:
       do:
         docker_linux.check_linux_disk_space:
@@ -52,15 +54,20 @@ flow:
           - privateKeyFile: private_key_file
       publish:
         - disk_space
+        - error_message
     check_availability:
       do:
         base_comparisons.less_than_percentage:
           - first_percentage: disk_space
           - second_percentage: percentage
+      publish:
+        - error_message
       navigate:
         LESS: SUCCESS
         MORE: NOT_ENOUGH_DISKSPACE
         FAILURE: FAILURE
+  outputs:
+    - error_message
   results:
     - SUCCESS
     - FAILURE

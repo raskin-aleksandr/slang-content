@@ -59,6 +59,7 @@ operation:
       methodName: runSshShellCommand
   outputs:
     - response: STDOUT
+    - error_message: STDERR if returnCode == '0' else returnResult
   results:
     - SUCCESS: returnCode == '0' and (not 'Error' in STDERR)
     - FAILURE

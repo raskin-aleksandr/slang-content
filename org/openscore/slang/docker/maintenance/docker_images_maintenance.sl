@@ -43,6 +43,8 @@ flow:
           - docker_password
           - private_key_file
           - percentage
+      publish:
+        - error_message
       navigate:
         SUCCESS: SUCCESS
         FAILURE: FAILURE
@@ -59,5 +61,7 @@ flow:
         - amount_of_dangling_images_deleted
         - dangling_images_list_safe_to_delete
         - images_list_safe_to_delete
+        - error_message
   outputs:
     - total_amount_of_images_deleted: str(int(amount_of_images_deleted) + int(amount_of_dangling_images_deleted))
+    - error_message

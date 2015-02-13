@@ -42,6 +42,8 @@ flow:
           - username: docker_username
           - password: docker_password
           - privateKeyFile: private_key_file
+      publish:
+        - error_message
     get_dangling_images:
       do:
         docker_images.get_dangling_images:
@@ -51,6 +53,7 @@ flow:
           - privateKeyFile: private_key_file
       publish:
         - all_dangling_images: dangling_image_list.replace("\n"," ")
+        - error_message
     substract_used_dangling_images:
       do:
         base_lists.subtract_sets:
@@ -72,6 +75,8 @@ flow:
           - images: images_list_safe_to_delete
       publish:
         - response
+        - error_message
   outputs:
     - dangling_images_list_safe_to_delete: images_list_safe_to_delete
     - amount_of_dangling_images_deleted: "'0' if images_list_safe_to_delete == '' else amount_of_dangling_images"
+    - error_message
